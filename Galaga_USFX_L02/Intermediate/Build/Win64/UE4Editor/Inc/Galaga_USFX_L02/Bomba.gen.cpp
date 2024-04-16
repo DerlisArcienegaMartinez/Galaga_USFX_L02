@@ -17,7 +17,6 @@ void EmptyLinkFunctionForGeneratedCodeBomba() {}
 	GALAGA_USFX_L02_API UClass* Z_Construct_UClass_ABomba();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_Galaga_USFX_L02();
-	ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 // End Cross Module References
 	void ABomba::StaticRegisterNativesABomba()
@@ -41,10 +40,6 @@ void EmptyLinkFunctionForGeneratedCodeBomba() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VelocidadBomba_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_VelocidadBomba;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ExplosionEffect_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ExplosionEffect;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BombaMesh_MetaData[];
 #endif
@@ -72,19 +67,12 @@ void EmptyLinkFunctionForGeneratedCodeBomba() {}
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABomba_Statics::NewProp_CantidadDanio = { "CantidadDanio", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ABomba, CantidadDanio), METADATA_PARAMS(Z_Construct_UClass_ABomba_Statics::NewProp_CantidadDanio_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ABomba_Statics::NewProp_CantidadDanio_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba_MetaData[] = {
-		{ "ModuleRelativePath", "Bomba.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba = { "VelocidadBomba", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ABomba, VelocidadBomba), METADATA_PARAMS(Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ABomba_Statics::NewProp_ExplosionEffect_MetaData[] = {
-		{ "Category", "Effects" },
 		{ "Comment", "// Malla visual de la bomba\n" },
 		{ "ModuleRelativePath", "Bomba.h" },
 		{ "ToolTip", "Malla visual de la bomba" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomba_Statics::NewProp_ExplosionEffect = { "ExplosionEffect", nullptr, (EPropertyFlags)0x0040000000020001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ABomba, ExplosionEffect), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ABomba_Statics::NewProp_ExplosionEffect_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ABomba_Statics::NewProp_ExplosionEffect_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba = { "VelocidadBomba", nullptr, (EPropertyFlags)0x0040000000000000, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ABomba, VelocidadBomba), METADATA_PARAMS(Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ABomba_Statics::NewProp_BombaMesh_MetaData[] = {
 		{ "Category", "Bomba" },
@@ -96,7 +84,6 @@ void EmptyLinkFunctionForGeneratedCodeBomba() {}
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABomba_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomba_Statics::NewProp_CantidadDanio,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomba_Statics::NewProp_VelocidadBomba,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomba_Statics::NewProp_ExplosionEffect,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomba_Statics::NewProp_BombaMesh,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ABomba_Statics::StaticCppClassTypeInfo = {
@@ -126,7 +113,7 @@ void EmptyLinkFunctionForGeneratedCodeBomba() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ABomba, 2530831919);
+	IMPLEMENT_CLASS(ABomba, 1888752843);
 	template<> GALAGA_USFX_L02_API UClass* StaticClass<ABomba>()
 	{
 		return ABomba::StaticClass();

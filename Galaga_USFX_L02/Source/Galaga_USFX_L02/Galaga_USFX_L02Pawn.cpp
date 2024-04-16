@@ -52,6 +52,10 @@ AGalaga_USFX_L02Pawn::AGalaga_USFX_L02Pawn()
 	FireRate = 0.1f;
 	bCanFire = true;
 
+
+
+
+
 	// Otro código del constructor
 	VelocidadMovimiento = 100.0f; // Configurar la velocidad de movimiento por defecto
 
@@ -67,12 +71,14 @@ void AGalaga_USFX_L02Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	PlayerInputComponent->BindAxis(FireRightBinding);
 
-	/*Super::SetupPlayerInputComponent(PlayerInputComponent);*/
 
-	// Bind bomb input action
+
+	// configuracion para las teclas
 	PlayerInputComponent->BindAction("MoveUp", IE_Pressed, this, &AGalaga_USFX_L02Pawn::MoveUp);
 	PlayerInputComponent->BindAction("MoveDown", IE_Pressed, this, &AGalaga_USFX_L02Pawn::MoveDown);
 	PlayerInputComponent->BindAction("FireBomb", IE_Pressed, this, &AGalaga_USFX_L02Pawn::FireBomb);
+	PlayerInputComponent->BindAction("DestroyBomb", IE_Pressed, this, &AGalaga_USFX_L02Pawn::DestroyBomb);
+
 
 }
 
@@ -164,6 +170,21 @@ void AGalaga_USFX_L02Pawn::MoveDown()
 	FVector CurrentLocation = GetActorLocation();
 	CurrentLocation.Z -= VelocidadMovimiento;
 	SetActorLocation(CurrentLocation);
+}
+
+void AGalaga_USFX_L02Pawn::DestroyBomb()
+{
+	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::M))
+	{
+		TArray<AActor*> Bombas;
+
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABomba::StaticClass(), Bombas);
+
+		if (Bombas.Num() > 0)
+		{
+			Bombas[0]->Destroy();
+		}
+	}
 }
 
 

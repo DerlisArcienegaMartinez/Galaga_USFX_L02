@@ -37,10 +37,6 @@ void ABomba::BeginPlay()
 {
 	Super::BeginPlay();
 	
-
-    FTimerHandle BombaDestruida;
-    GetWorld()->GetTimerManager().SetTimer(BombaDestruida, this, &ABomba::DestruirBomba, 5.0f, true);
-
   
 }
 
@@ -53,49 +49,34 @@ void ABomba::Tick(float DeltaTime)
 
 void ABomba::MoverBomba(float DeltaTime)
 {
-    // Mover la bomba hacia abajo en el eje Z
-    FVector NewLocation = GetActorLocation();
-    NewLocation.Z -= VelocidadBomba * DeltaTime;
-    SetActorLocation(NewLocation);
 
-    if (NewLocation.Z <= 0.0f)
+    FVector Start = GetActorLocation();
+    FVector End = Start + FVector(0.0f, 0.0f, -1.0f);
+
+    FHitResult HitResult;
+    FCollisionQueryParams CollisionParams;
+    CollisionParams.bTraceComplex = true;
+
+    if (GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, CollisionParams))
     {
-        DestruirBomba();
+        SetActorLocation(HitResult.ImpactPoint + FVector(0.0f, 0.0f, BombaMesh->GetStaticMesh()->GetBounds().BoxExtent.Z));
+    
+        VelocidadBomba = 0.0f;
     }
-}
-
-void ABomba::DestruirBomba()
-{
-    if (ExplosionEffect)
+    else
     {
-        UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());
-    }
-   
-    TArray<AActor*> OverlappingActors;
-    GetOverlappingActors(OverlappingActors);
+        // Mover la bomba hacia abajo en el eje Z
+        FVector NewLocation = GetActorLocation();
+        NewLocation.Z -= VelocidadBomba * DeltaTime;
+        SetActorLocation(NewLocation);
 
-    for (AActor* Actor : OverlappingActors)
-    {
-        if (Actor && Actor != this && Actor->ActorHasTag("Enemy"))
+        if (NewLocation.Z <= 200.0f)
         {
-            Actor->TakeDamage(CantidadDanio, FDamageEvent(), nullptr, this);
+            VelocidadBomba = 0.0f;
         }
     }
-
-    Destroy();
 }
 
-void ABomba::NotificarColision(UPrimitiveComponent* MyComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
-{
-    Super::NotifyHit(MyComp, OtherActor, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
-
-    // Verificar si la bomba ha colisionado con el suelo u otro actor
-    if (OtherActor && OtherActor != this)
-    {
-        // Activar el efecto de explosión
-        DestruirBomba();
-    }
-}
 
 
 
