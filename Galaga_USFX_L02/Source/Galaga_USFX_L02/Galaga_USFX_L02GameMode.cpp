@@ -6,7 +6,6 @@
 #include "NaveEnemigaCaza.h"
 #include "NaveEnemigaTransporte.h"
 
-
 AGalaga_USFX_L02GameMode::AGalaga_USFX_L02GameMode()
 {
 	// set default pawn class to our character class
