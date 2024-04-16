@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "Galaga_USFX_L02Pawn.generated.h"
 
+class ABomba;
+
 UCLASS(Blueprintable)
 class AGalaga_USFX_L02Pawn : public APawn
 {
@@ -52,6 +54,10 @@ public:
 
 	/* Handler for the fire timer expiry */
 	void ShotTimerExpired();
+//implementaciones
+	void FireBomb();
+	void MoveUp();
+	void MoveDown();
 
 	// Static names for axis bindings
 	static const FName MoveForwardBinding;
@@ -66,6 +72,13 @@ private:
 
 	/** Handle for efficient management of ShotTimerExpired timer */
 	FTimerHandle TimerHandle_ShotTimerExpired;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+		float VelocidadMovimiento = 100.0f; // Velocidad de movimiento hacia arriba o abajo
+	//SPAWNEAR LA CLASE BOMBA
+	UPROPERTY(EditAnywhere, Category = "Bomba")
+		TSubclassOf<class ABomba> BombaClass;//creacion de la subclase BombaClass
+
 
 public:
 	/** Returns ShipMeshComponent subobject **/

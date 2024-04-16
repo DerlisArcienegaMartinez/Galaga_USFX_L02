@@ -12,6 +12,7 @@
 #include "Engine/StaticMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
+#include "Bomba.h"
 
 const FName AGalaga_USFX_L02Pawn::MoveForwardBinding("MoveForward");
 const FName AGalaga_USFX_L02Pawn::MoveRightBinding("MoveRight");
@@ -50,6 +51,10 @@ AGalaga_USFX_L02Pawn::AGalaga_USFX_L02Pawn()
 	GunOffset = FVector(90.f, 0.f, 0.f);
 	FireRate = 0.1f;
 	bCanFire = true;
+
+	// Otro código del constructor
+	VelocidadMovimiento = 100.0f; // Configurar la velocidad de movimiento por defecto
+
 }
 
 void AGalaga_USFX_L02Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -61,6 +66,14 @@ void AGalaga_USFX_L02Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAxis(MoveRightBinding);
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	PlayerInputComponent->BindAxis(FireRightBinding);
+
+	/*Super::SetupPlayerInputComponent(PlayerInputComponent);*/
+
+	// Bind bomb input action
+	PlayerInputComponent->BindAction("MoveUp", IE_Pressed, this, &AGalaga_USFX_L02Pawn::MoveUp);
+	PlayerInputComponent->BindAction("MoveDown", IE_Pressed, this, &AGalaga_USFX_L02Pawn::MoveDown);
+	PlayerInputComponent->BindAction("FireBomb", IE_Pressed, this, &AGalaga_USFX_L02Pawn::FireBomb);
+
 }
 
 void AGalaga_USFX_L02Pawn::Tick(float DeltaSeconds)
@@ -137,3 +150,29 @@ void AGalaga_USFX_L02Pawn::ShotTimerExpired()
 	bCanFire = true;
 }
 
+void AGalaga_USFX_L02Pawn::MoveUp()
+{
+	// Aumentar la altura en un incremento pequeño
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation.Z += VelocidadMovimiento;
+	SetActorLocation(CurrentLocation);
+}
+
+void AGalaga_USFX_L02Pawn::MoveDown()
+{
+	// Disminuir la altura en un decremento pequeño
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation.Z -= VelocidadMovimiento;
+	SetActorLocation(CurrentLocation);
+}
+
+
+void AGalaga_USFX_L02Pawn::FireBomb()
+{
+	if (BombaClass)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		FRotator SpawnRotation = GetActorRotation();
+		GetWorld()->SpawnActor<ABomba>(BombaClass, SpawnLocation, SpawnRotation);
+	}
+}
