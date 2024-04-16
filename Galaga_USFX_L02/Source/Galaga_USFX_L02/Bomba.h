@@ -16,6 +16,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 		UStaticMeshComponent* BombaMesh; // Malla visual de la bomba
 
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+		class UParticleSystem* ExplosionEffect;
 
 	UPROPERTY()
 		float VelocidadBomba; // Velocidad de caída de la bomba
@@ -40,5 +42,5 @@ public:
 
 	void MoverBomba(float DeltaTime);
 	void DestruirBomba();
-
+	void NotificarColision(UPrimitiveComponent* MyComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit);
 };

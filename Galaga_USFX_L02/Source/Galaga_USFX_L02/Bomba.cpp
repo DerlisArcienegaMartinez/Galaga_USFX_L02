@@ -27,7 +27,7 @@ ABomba::ABomba()
     {
         BombaMesh->SetStaticMesh(BombaMeshAsset.Object);
     }
-
+    
 
     VelocidadBomba = 500.0f; // Velocidad inicial de caída
 }
@@ -66,6 +66,10 @@ void ABomba::MoverBomba(float DeltaTime)
 
 void ABomba::DestruirBomba()
 {
+    if (ExplosionEffect)
+    {
+        UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());
+    }
    
     TArray<AActor*> OverlappingActors;
     GetOverlappingActors(OverlappingActors);
@@ -80,4 +84,18 @@ void ABomba::DestruirBomba()
 
     Destroy();
 }
+
+void ABomba::NotificarColision(UPrimitiveComponent* MyComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+    Super::NotifyHit(MyComp, OtherActor, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+
+    // Verificar si la bomba ha colisionado con el suelo u otro actor
+    if (OtherActor && OtherActor != this)
+    {
+        // Activar el efecto de explosión
+        DestruirBomba();
+    }
+}
+
+
 

@@ -60,6 +60,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ABomba); \
 
 #define Galaga_USFX_L02_Source_Galaga_USFX_L02_Bomba_h_12_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__BombaMesh() { return STRUCT_OFFSET(ABomba, BombaMesh); } \
+	FORCEINLINE static uint32 __PPO__ExplosionEffect() { return STRUCT_OFFSET(ABomba, ExplosionEffect); } \
 	FORCEINLINE static uint32 __PPO__VelocidadBomba() { return STRUCT_OFFSET(ABomba, VelocidadBomba); }
 
 
